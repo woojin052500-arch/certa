@@ -8,15 +8,15 @@ import type { CapacitorConfig } from "@capacitor/cli";
  * 즉, 웹앱을 그대로 Android 셸로 감싸는 구조이며, 여기에 AdMob 등 네이티브 플러그인을
  * 추가해 앱스토어 "최소 기능" 정책을 충족시켜야 합니다 (단순 웹뷰 래핑만으로는 반려될 수 있음).
  *
- * server.url을 실제 배포 도메인으로 반드시 교체하세요. (예: https://certa.vercel.app)
+ * server.url은 실제 배포 도메인(https://certa-theta.vercel.app)으로 이미 설정되어 있습니다.
+ * 나중에 커스텀 도메인을 연결하면 이 값도 함께 바꿔주세요.
  */
 const config: CapacitorConfig = {
   appId: "com.wjedulab.certa",
   appName: "Certa",
   webDir: "public",
   server: {
-    // TODO: Vercel 배포 후 실제 프로덕션 URL로 교체
-    url: "https://certa.vercel.app",
+    url: "https://certa-theta.vercel.app",
     cleartext: false,
   },
 };

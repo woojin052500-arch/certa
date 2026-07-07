@@ -130,11 +130,11 @@ export default function MyPage() {
           </div>
           <h3 className="text-lg font-bold mb-2">나만의 오답노트</h3>
           <p className="text-sm text-slate-500 mb-5">
-            자주 틀리는 문제들만 따로 모아<br/>약점을 보완할 수 있는 기능이 곧 오픈됩니다!
+            자주 틀리는 문제들만 따로 모아<br/>다시 풀어보고 약점을 보완하세요!
           </p>
-          <button disabled className="px-4 py-2 bg-slate-100 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed">
-            출시 준비 중
-          </button>
+          <Link href="/mypage/saved" className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-sm font-medium transition shadow-sm">
+            오답노트 열어보기 &rarr;
+          </Link>
         </div>
       </div>
 

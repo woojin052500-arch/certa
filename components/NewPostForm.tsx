@@ -39,6 +39,8 @@ export default function NewPostForm({ certs }: { certs: Certification[] }) {
       setErrorMsg("글 등록에 실패했어요. Supabase 스키마가 설정됐는지 확인해주세요.");
       return;
     }
+    
+    router.refresh(); // 라우터 캐시 무효화
     router.push(`/community/${data.id}`);
   };
 

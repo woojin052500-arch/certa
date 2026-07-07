@@ -9,6 +9,8 @@ const TYPE_LABEL: Record<string, string> = {
   question: "질문",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function CommunityPage() {
   const { data, error } = await supabase
     .from("community_posts")

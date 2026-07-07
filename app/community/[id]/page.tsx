@@ -4,6 +4,8 @@ import { CommunityComment, CommunityPost } from "@/lib/types";
 import CommentSection from "@/components/CommentSection";
 import AdBanner from "@/components/AdBanner";
 
+export const dynamic = "force-dynamic";
+
 export default async function PostDetailPage({
   params,
 }: {

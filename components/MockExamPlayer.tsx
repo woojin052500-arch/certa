@@ -47,9 +47,9 @@ export default function MockExamPlayer({
         <p className="text-sm text-slate-500 mb-1">
           총 {questions.length}문제 · 연습문제로 구성 (실제 기출문제 아님)
         </p>
-        <p className="text-xs text-slate-400 mb-5">
-          실제 시험처럼 끝까지 푼 뒤 한 번에 채점됩니다. 문제별 첨삭(해설)은
-          제출 후 광고 시청 후 열람할 수 있어요.
+        <p className="text-xs text-slate-500 mb-5 leading-relaxed break-keep">
+          실제 시험처럼 제한 없이 푼 뒤 한 번에 채점됩니다. <br className="hidden sm:block" />
+          모든 문제에 대한 <strong>성적표와 명쾌한 해설</strong>은 채점 완료 후 확인하실 수 있어요!
         </p>
         <button
           onClick={() => setStarted(true)}
@@ -111,7 +111,7 @@ export default function MockExamPlayer({
           </div>
         )}
 
-        <AdBanner slot="mock-exam-result" className="my-6" />
+        <AdBanner unit="DAN-rVbdlrqWzZ8RUDtG" width="320" height="50" className="my-8" />
 
         <div className="flex gap-3">
           <button
@@ -142,14 +142,13 @@ export default function MockExamPlayer({
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
         <div className="bg-white rounded-xl shadow-xl w-full max-w-sm overflow-hidden flex flex-col">
-          <div className="p-4 border-b text-center">
-            <h3 className="font-semibold text-lg">결과 및 해설 확인</h3>
-            <p className="text-xs text-slate-500 mt-1">광고를 닫으면 채점 결과와 해설이 제공됩니다.</p>
+          <div className="p-4 border-b text-center bg-indigo-50/50">
+            <h3 className="font-bold text-lg text-indigo-900">수고하셨습니다! 🎉</h3>
+            <p className="text-xs text-indigo-700 mt-1 font-medium">아래 광고를 닫으면 채점 결과와 전체 해설이 바로 공개됩니다.</p>
           </div>
           
           <div className="p-4 bg-slate-50 flex justify-center items-center min-h-[250px]">
-            {/* TODO: 실제 대형 광고 단위(300x250) ID로 교체하세요! */}
-            <KakaoAdFit unit="DAN-placeholder-large" width="300" height="250" />
+            <KakaoAdFit unit="DAN-d8d5pMi10MsuwcMM" width="300" height="250" />
           </div>
 
           <div className="p-4">

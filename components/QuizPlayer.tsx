@@ -52,7 +52,7 @@ export default function QuizPlayer({
         <p className="text-3xl font-bold mb-6">
           {score} / {questions.length}
         </p>
-        <AdBanner slot="quiz-result" className="mb-6" />
+        <AdBanner unit="DAN-rVbdlrqWzZ8RUDtG" width="320" height="50" className="mb-8" />
         <button
           onClick={() => {
             setIndex(0);

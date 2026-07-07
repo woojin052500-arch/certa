@@ -31,7 +31,7 @@ export default function KakaoAdFit({
 
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = "//t1.daumcdn.net/kas/static/ba.min.js";
+      script.src = "//t1.kakaocdn.net/kas/static/ba.min.js";
       script.async = true;
 
       adRef.current.appendChild(ins);

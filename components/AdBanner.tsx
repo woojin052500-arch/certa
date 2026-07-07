@@ -9,16 +9,19 @@ import KakaoAdFit from "./KakaoAdFit";
 export default function AdBanner({
   slot = "banner",
   className = "",
+  unit = "DAN-Jdt1adls7aCA1gf3", // Default: 320x100
+  width = "320",
+  height = "100"
 }: {
   slot?: string;
   className?: string;
+  unit?: string;
+  width?: string;
+  height?: string;
 }) {
-  // TODO: 실제 카카오 애드핏 배너 광고 단위 ID(DAN-XXXX)로 교체하세요!
-  const adUnitId = "DAN-placeholder-banner";
-  
   return (
-    <div className={`w-full flex justify-center ${className}`}>
-      <KakaoAdFit unit={adUnitId} width="320" height="100" />
+    <div className={`w-full flex justify-center overflow-hidden my-4 ${className}`}>
+      <KakaoAdFit unit={unit} width={width} height={height} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Certification } from "@/lib/types";
 import CompareTable from "@/components/CompareTable";
 import AdBanner from "@/components/AdBanner";
 
+export const dynamic = "force-dynamic";
 export default async function ComparePage() {
   const { data, error } = await supabase
     .from("certifications")

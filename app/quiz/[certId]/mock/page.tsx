@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { Certification, QuizQuestion } from "@/lib/types";
 import MockExamPlayer from "@/components/MockExamPlayer";
 
+export const dynamic = "force-dynamic";
 export default async function MockExamPage({
   params,
 }: {

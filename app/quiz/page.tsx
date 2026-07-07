@@ -2,6 +2,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Certification } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
 export default async function QuizIndexPage() {
   const { data } = await supabase.from("certifications").select("*");
   const certs = (data ?? []) as Certification[];

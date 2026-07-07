@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase";
 import { Certification } from "@/lib/types";
 import RecommendQuiz from "@/components/RecommendQuiz";
 
+export const dynamic = "force-dynamic";
 export default async function RecommendPage() {
   const { data } = await supabase.from("certifications").select("*");
   const certs = (data ?? []) as Certification[];

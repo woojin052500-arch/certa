@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { Certification, QuizQuestion } from "@/lib/types";
 import QuizPlayer from "@/components/QuizPlayer";
 
+export const dynamic = "force-dynamic";
 export default async function QuizPlayPage({
   params,
 }: {

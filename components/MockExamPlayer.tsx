@@ -74,17 +74,6 @@ export default function MockExamPlayer({
           </p>
         </div>
 
-        {!reviewUnlocked ? (
-          <div className="text-center py-6">
-            <p className="text-sm text-slate-500 mb-4">
-              문제별 첨삭(정답 · 해설)은 광고를 보면 열람할 수 있어요.
-            </p>
-            <RewardedAdButton
-              label="광고 보고 첨삭 전체 보기"
-              onRewarded={() => setReviewUnlocked(true)}
-            />
-          </div>
-        ) : (
           <div className="flex flex-col gap-4 mt-6">
             {questions.map((q, i) => {
               const picked = answers[q.id];
@@ -133,7 +122,6 @@ export default function MockExamPlayer({
               );
             })}
           </div>
-        )}
 
         <AdBanner unit="DAN-rVbdlrqWzZ8RUDtG" width="320" height="50" className="my-8" />
 

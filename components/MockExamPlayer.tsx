@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { QuizQuestion } from "@/lib/types";
-import RewardedAdButton from "@/components/RewardedAdButton";
 import AdBanner from "@/components/AdBanner";
 import KakaoAdFit from "@/components/KakaoAdFit";
+import { supabase } from "@/lib/supabase";
 
 type Answers = Record<string, number | undefined>;
 
@@ -96,9 +96,33 @@ export default function MockExamPlayer({
                     correct ? "border-green-200" : "border-red-200"
                   }`}
                 >
-                  <p className="font-medium mb-2">
-                    {i + 1}. {q.question}
-                  </p>
+                  <div className="flex justify-between items-start mb-2">
+                    <p className="font-medium pr-4">
+                      {i + 1}. {q.question}
+                    </p>
+                    {!correct && (
+                      <button 
+                        onClick={async () => {
+                          const { data: { session } } = await supabase.auth.getSession();
+                          if (session) {
+                            await supabase.from("saved_questions").insert({
+                              user_id: session.user.id,
+                              question_id: q.id
+                            });
+                            alert("오답노트에 저장되었습니다!");
+                          } else {
+                            alert("로그인이 필요합니다.");
+                          }
+                        }}
+                        className="shrink-0 flex items-center gap-1 text-[10px] font-medium text-slate-500 hover:text-indigo-600 bg-slate-100 px-2 py-1 rounded transition"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        저장
+                      </button>
+                    )}
+                  </div>
                   <p className="text-xs text-slate-500 mb-1">
                     내 답:{" "}
                     {picked !== undefined ? q.choices[picked] : "미응답"} ·
@@ -153,10 +177,31 @@ export default function MockExamPlayer({
 
           <div className="p-4">
             <button
-              onClick={() => {
+              onClick={async () => {
                 setShowAdModal(false);
                 setSubmitted(true);
                 setReviewUnlocked(true);
+
+                // 결과 저장 및 경험치 획득 로직
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session) {
+                  const earnedExp = score * 10 + 50; // 문제당 10점 + 완료 보너스 50점
+                  
+                  // 1. quiz_results 저장
+                  await supabase.from("quiz_results").insert({
+                    user_id: session.user.id,
+                    cert_id: certId,
+                    score,
+                    total_questions: questions.length,
+                    exp_earned: earnedExp
+                  });
+
+                  // 2. 현재 프로필 EXP 가져와서 업데이트
+                  const { data: prof } = await supabase.from("profiles").select("exp").eq("id", session.user.id).single();
+                  if (prof) {
+                    await supabase.from("profiles").update({ exp: prof.exp + earnedExp }).eq("id", session.user.id);
+                  }
+                }
               }}
               className="w-full py-3 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition"
             >

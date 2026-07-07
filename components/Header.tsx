@@ -84,7 +84,7 @@ export default function Header() {
           {!isLoading && (
             user ? (
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2">
+                <Link href="/mypage" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                   {user.user_metadata?.avatar_url && (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img 
@@ -93,10 +93,10 @@ export default function Header() {
                       className="w-7 h-7 rounded-full border border-slate-200"
                     />
                   )}
-                  <span className="text-sm font-medium hidden sm:inline-block">
+                  <span className="text-sm font-medium hidden sm:inline-block hover:underline">
                     {user.user_metadata?.full_name || "사용자"}님
                   </span>
-                </div>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="text-xs text-slate-500 hover:text-slate-800 transition-colors"

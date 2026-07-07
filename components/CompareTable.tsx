@@ -101,7 +101,7 @@ export default function CompareTable({ certs }: { certs: Certification[] }) {
       </p>
 
       <div className="overflow-x-auto rounded-xl border border-[var(--border-subtle)] bg-white">
-        <table className="w-full text-sm">
+        <table className="w-full text-sm whitespace-nowrap">
           <thead className="bg-[var(--surface-muted)] text-[var(--text-muted)] text-xs">
             <tr>
               <th className="text-left px-4 py-3 font-medium">자격증</th>

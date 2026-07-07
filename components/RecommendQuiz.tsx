@@ -19,9 +19,7 @@ const FEE_OPTIONS = [
 ];
 
 export default function RecommendQuiz({ certs: allCerts }: { certs: Certification[] }) {
-  // 통계가 확인된 자격증만 추천 대상으로 사용 (미검증 자격증은 응시료/기간이 0으로
-  // 채워져 있어 필터링 결과가 왜곡될 수 있음)
-  const certs = useMemo(() => allCerts.filter((c) => c.verified), [allCerts]);
+  const certs = useMemo(() => allCerts, [allCerts]);
   const categories = useMemo(
     () => Array.from(new Set(certs.map((c) => c.category))),
     [certs]
@@ -54,26 +52,31 @@ export default function RecommendQuiz({ certs: allCerts }: { certs: Certificatio
         ) : (
           <div className="grid gap-4 mb-6">
             {result.map((c, i) => (
-              <div
+              <Link
                 key={c.id}
-                className="rounded-xl border border-slate-200 p-5 relative"
+                href={`/quiz/${c.id}`}
+                className="block rounded-xl border border-slate-200 p-5 relative hover:border-indigo-400 hover:shadow-md transition"
               >
                 {i === 0 && (
                   <span className="absolute -top-2 -left-2 text-[10px] bg-indigo-600 text-white px-2 py-0.5 rounded-full">
                     1순위 추천
                   </span>
                 )}
-                <h3 className="font-semibold">{c.name}</h3>
+                <h3 className="font-semibold text-indigo-900 group-hover:text-indigo-600">{c.name}</h3>
                 <p className="text-xs text-slate-400 mb-2">
                   {c.category} · {c.issuing_org}
                 </p>
                 <div className="flex gap-4 text-xs text-slate-500">
-                  <span>응시료 {c.exam_fee.toLocaleString()}원</span>
-                  <span>준비 {c.prep_weeks}주</span>
-                  <span>합격률 {c.pass_rate}%</span>
+                  <span>응시료 {c.exam_fee === 0 ? "정보없음" : `${c.exam_fee.toLocaleString()}원`}</span>
+                  <span>준비 {c.prep_weeks === 0 ? "정보없음" : `${c.prep_weeks}주`}</span>
+                  <span>합격률 {c.pass_rate === 0 ? "정보없음" : `${c.pass_rate}%`}</span>
                 </div>
-                <p className="text-sm text-slate-600 mt-3">{c.description}</p>
-              </div>
+                {c.description && <p className="text-sm text-slate-600 mt-3 line-clamp-2">{c.description}</p>}
+                
+                <div className="mt-4 inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-md">
+                  문제 풀러가기 →
+                </div>
+              </Link>
             ))}
           </div>
         )}

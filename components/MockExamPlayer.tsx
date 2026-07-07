@@ -5,6 +5,7 @@ import Link from "next/link";
 import { QuizQuestion } from "@/lib/types";
 import RewardedAdButton from "@/components/RewardedAdButton";
 import AdBanner from "@/components/AdBanner";
+import KakaoAdFit from "@/components/KakaoAdFit";
 
 type Answers = Record<string, number | undefined>;
 
@@ -22,6 +23,7 @@ export default function MockExamPlayer({
   const [answers, setAnswers] = useState<Answers>({});
   const [submitted, setSubmitted] = useState(false);
   const [reviewUnlocked, setReviewUnlocked] = useState(false);
+  const [showAdModal, setShowAdModal] = useState(false);
 
   const score = useMemo(() => {
     return questions.reduce(
@@ -135,6 +137,38 @@ export default function MockExamPlayer({
     );
   }
 
+  // 결과 보기 전 대형 광고(보상형 대체) 모달
+  if (showAdModal) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+        <div className="bg-white rounded-xl shadow-xl w-full max-w-sm overflow-hidden flex flex-col">
+          <div className="p-4 border-b text-center">
+            <h3 className="font-semibold text-lg">결과 및 해설 확인</h3>
+            <p className="text-xs text-slate-500 mt-1">광고를 닫으면 채점 결과와 해설이 제공됩니다.</p>
+          </div>
+          
+          <div className="p-4 bg-slate-50 flex justify-center items-center min-h-[250px]">
+            {/* TODO: 실제 대형 광고 단위(300x250) ID로 교체하세요! */}
+            <KakaoAdFit unit="DAN-placeholder-large" width="300" height="250" />
+          </div>
+
+          <div className="p-4">
+            <button
+              onClick={() => {
+                setShowAdModal(false);
+                setSubmitted(true);
+                setReviewUnlocked(true);
+              }}
+              className="w-full py-3 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition"
+            >
+              광고 닫고 결과 확인하기
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const q = questions[index];
 
   return (
@@ -180,7 +214,7 @@ export default function MockExamPlayer({
           </button>
         ) : (
           <button
-            onClick={() => setSubmitted(true)}
+            onClick={() => setShowAdModal(true)}
             className="text-sm rounded-md bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700"
           >
             제출하고 채점하기

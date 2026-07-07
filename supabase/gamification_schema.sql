@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS public.quiz_results (
 CREATE TABLE IF NOT EXISTS public.saved_questions (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
-  question_id uuid REFERENCES public.questions(id) ON DELETE CASCADE NOT NULL,
+  question_id uuid REFERENCES public.quiz_questions(id) ON DELETE CASCADE NOT NULL,
   memo text, -- 오답 노트 메모 (선택)
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
   UNIQUE(user_id, question_id) -- 한 문제는 한 번만 저장 가능
